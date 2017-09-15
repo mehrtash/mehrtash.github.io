@@ -1,0 +1,19 @@
+# Site settings
+title: Alireza Mehrtash blog
+email: mehrtash@bwh.harvard.edu
+description: "Personal blog of Alireza Mehrtash. Deep Learning for Medical Image Analysis at Harvard Medical School."
+baseurl: ""
+url: "http://mehrtash.github.io"
+twitter_username: mhrtsh
+github_username:  mehrtash
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+
