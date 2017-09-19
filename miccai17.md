@@ -3,6 +3,8 @@ layout: page
 mathjax: true
 permalink: /miccai17/
 ---
+# MICCAI 2017: A Survey of Deep Learning Papers
+
 <div class="fig figcenter">
   <img src="/assets/miccai17/miccai_cover.jpg" width="100%">
 </div>
