@@ -13,14 +13,7 @@ Since 1998 the MICCAI society has brought together researchers working on comput
 
 **Overview.** Out of 800 submitted papers to the conference 255 papers were accepted, making the acceptance rate 32%. To get an insight of the growing trend in deep learning in medical image analysis let's review the top 20 occurred words in the abstract of the past 5 MICCAI conferences:
 
-|---
-| Default aligned | Left aligned | Center aligned | Right aligned
-|-|:-|:-:|-:
-| First body part | Second cell | Third cell | fourth cell
-| Second line |foo | **strong** | baz
-| Third line |quux | baz | bar
-|---
-| Second body
-| 2 line
-|===
-| Footer row
+|A|B|C|AA|
+| --- | --- | --- | --- |
+|Q|W   |    E | RR     |
+

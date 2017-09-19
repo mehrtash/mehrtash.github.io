@@ -8,7 +8,7 @@ twitter_username: mhrtsh
 github_username:  mehrtash
 
 # Build settings
-markdown: kramdown
+markdown: github-markdown
 permalink: pretty
 
 highlighter: rouge
