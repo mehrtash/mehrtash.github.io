@@ -493,6 +493,7 @@ a:visited { color: #205caa; }
 table   { border-collapse: collapse; width: 100%}
 td,th {
   padding: 10px;
+  font-size: 14px;
   border-bottom: 1px solid #ddd;
   text-align: left;
   vertical-align: middle;
