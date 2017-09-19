@@ -489,3 +489,18 @@ a:visited { color: #205caa; }
     margin: 0 0 15px; }
 
 }
+
+table   { border-collapse: collapse; width: 100%}
+td,th {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+tr:hover {background-color: #f5f5f5}
+tr:nth-child(even) {background-color: #f2f2f2}
+th {
+    background-color: #7c7c7c;
+    color: white;
+}
+
