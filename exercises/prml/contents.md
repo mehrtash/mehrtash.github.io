@@ -9,7 +9,7 @@ permalink: /exercises/ml/prml/
 <table>
   <tbody>
     <tr>
-      <td><a href='/exercises/ml/prml/1_1'>1.1</a></td>
+      <td><a href='/exercises/ml/prml/prml_e.1.1.pdf'>1.1</a></td>
       <td>1.2</td>
       <td>1.2</td>
       <td>1.3</td>
