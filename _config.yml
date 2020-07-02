@@ -1,19 +1,32 @@
-# Site settings
-title: mehrtash's blog
-email: mehrtash@bwh.harvard.edu
-description: "Personal blog of Alireza Mehrtash. Deep Learning for Medical Image Analysis at Harvard Medical School."
-baseurl: ""
-url: "http://mehrtash.github.io"
-twitter_username: mhrtsh
-github_username:  mehrtash
+title: "Alireza Mehrtash"
+author: "Alireza Mehrtash"
+description: "Alireza Mehrtash Personal Webpage"
+permalink: /:title/
+lang: "en"
+date_format: "%B %d, %Y"
 
-# Build settings
-markdown: kramdown
-permalink: pretty
+sidebar: false # show a sidebar instead of the usual header
+show_excerpts: false         # show article excerpts on the home page
+dark_header: false # keep the top-header dark
+hide_title: false            # hide the site title in the header
+minimal: true # minima-inspired style without box-shadows
 
-highlighter: rouge
-kramdown:
-  input: GFM
-  auto_ids: true
-  syntax_highlighter: rouge
+# see http://fontawesome.com/icons for icons
 
+navigation:
+#  - {file: "media_blog.md", icon: keyboard}
+#  - {file: "mlr_blog.md", icon: keyboard}
+#  - {file: "blog.md", icon: keyboard}
+  - {file: "index.html", icon: camera}
+
+external:
+#  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
+# - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
+#  - {title: Subscribe, icon: rss, url: "/feed.xml"}
+
+comments:                    # embed disqus or isso comments
+#  disqus: ""
+#  isso: ""
+
+# plugins:
+#  - jekyll-feed

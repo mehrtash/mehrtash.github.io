@@ -1,2 +1,0 @@
-# Alireza Mehrtash Personal Blog
-

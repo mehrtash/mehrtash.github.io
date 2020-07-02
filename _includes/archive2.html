@@ -1,0 +1,17 @@
+<article>
+  <h1>Machine Learning for Medical Image Analysis</h1>
+  <p>
+    This is a series about ... . Which has been published in Medium series too.
+  </p>
+  <!-- header><h1>{{ include.title | default: page.title }}</h1></header-->
+  <ul class="archive">
+    {% for post in site.posts %}
+      {% if post.type == "media"%}
+    <li>
+          <!-- time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time -->
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</article>
