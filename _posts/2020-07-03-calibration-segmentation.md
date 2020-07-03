@@ -38,7 +38,7 @@ of [brain](https://www.med.upenn.edu/sbia/brats2017/data.html),
 and [prostate](http://isgwww.cs.uni-magdeburg.de/cas/isbi2018/) to evaluate our contributions.
 
 <figure class="figure">
-  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/dice_vs_ce.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/summary.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
   <figcaption class="figure-caption">A caption for the above image.</figcaption>
 </figure>
 
@@ -89,7 +89,7 @@ Another benefit of ensembling over MC dropout is that it does not enforce the us
 
 
 #### Segment-level Predictive Uncertainty Estimation
-it is often desirable to have a confidence metric that captures model uncertainty at the segment-level
+It is often desirable to have a confidence metric that captures model uncertainty at the segment-level
 of a test image volume.
 Let's assume that we have a pelvic MRI volume and we use a deep model to segment the prostate gland.
 If we have access to the ground truth, we can calculate Dice score of the prostate and 
@@ -122,7 +122,7 @@ Higher entropy means less confidence in predictions and more inaccurate classifi
 to poorer Dice coefficients.
 
 <figure class="figure">
-  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/predictive_uncertainty.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/entropy_dice.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
   <figcaption class="figure-caption">A caption for the above image.</figcaption>
 </figure>
 
@@ -147,8 +147,9 @@ endorectal coils and sometimes they fail drastically.
 We observe that calibrated FCNs have the potential to detect OOD samples.
 
 
+
 <figure class="figure">
-  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/predictive_uncertainty.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/ood.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
   <figcaption class="figure-caption">
   The results of inference are shown for two test examples imaged with: (a) phased-array coil (in-distribution example), and (b) endorectal coil (out-of-distribution example).
   The first column shows T2-weighted MRI images with the prostate gland boundary drawn by an expert (white line).
@@ -164,8 +165,7 @@ We observe that calibrated FCNs have the potential to detect OOD samples.
 ##### Conclusions
 - Model ensembling is effective not only for improving segmentation quality but also for confidence calibration.
 - Ensembling significantly improves the calibration qualities of FCNs trained with Dice Loss and BN.
-- We observed that average entropy of the predicted segments correlates with Dice score. 
-Hence, it can be used as an effective metric for predicting the test-time performance when the ground-truth is unknown.
+- Average entropy of the predicted segments correlates with Dice score.  Hence, it can be used as an effective metric for predicting the test-time performance when the ground-truth is unknown.
 - Well-calibrated models can detect out-of-distribution examples and predict failures.
 
 <div class="share-page">
