@@ -1,0 +1,9 @@
+I"½<!-- introduction -->
+<p><a href="">Fully convolutional neural networks</a> (FCNs), including the <a href="">U-Net</a> and its variants, have been successfully used 
+for segmentation of normal organs and lesions.
+U-Net architecture has achieved top ranking results in several international segmentation challenges 
+(e.g<a href=""></a>, <a href=""></a>, and <a href=""></a>).
+Moreover, <a href="">Batch Normalization</a> (BN) and <a href="">Dice loss</a> are often used in training to stabilize and accelerate optimization.
+Networks trained with BN and Dice loss are often poorly calibrated.
+<a href="https://arxiv.org/abs/1706.04599">Miscalibration is a known issue in modern neural networks</a>.</p>
+:ET

@@ -1,0 +1,14 @@
+I"S<h3 id="problem">Problem</h3>
+
+<p>Show below is a logistic-regression classifiers decision boundaries on the first two dimensions 
+(sepal length and width) of the iris dataset. 
+The datapoints are colored according to their labels.</p>
+
+<script type="math/tex; mode=display">e^{i\theta}=\cos(\theta)+i\sin(\theta)</script>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span></code></pre></figure>
+
+<hr />
+<p><a href="/mlr1-hint/"><em>Hint</em></a></p>
+
+:ET
