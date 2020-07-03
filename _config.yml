@@ -26,7 +26,7 @@ external:
 #  - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
 comments:                    # embed disqus or isso comments
-disqus: true
+disqus: "https-mehrtash-github-io"
 #  isso: ""
 
 # plugins:
