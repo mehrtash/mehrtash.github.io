@@ -2,7 +2,7 @@
 title:  "Advanced examples"
 mathjax: true
 layout: post
-type: blog
+type: na
 ---
 
 ## MathJax
