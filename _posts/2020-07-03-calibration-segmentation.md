@@ -3,6 +3,7 @@ title:  "Confidence Calibration and Uncertainty Estimation for Deep Medical Imag
 mathjax: true
 layout: post
 type: blog
+comments: true
 ---
 
 <!-- introduction -->
@@ -174,4 +175,4 @@ Hence, it can be used as an effective metric for predicting the test-time perfor
     <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url | url_encode }}">LinkedIn</a> |
     <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
 </div>
-
+<!-- hr -->

@@ -1,4 +1,4 @@
-I"^4<!-- introduction -->
+I"i4<!-- introduction -->
 <p><a href="https://arxiv.org/abs/1411.4038">Fully convolutional neural networks</a> (FCNs) have been successfully used 
 in medical image analysis for semantic segmentation of normal organs and lesions.
 The <a href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is arguably the most popular architecture in medical image segmentation, 
@@ -165,5 +165,5 @@ Hence, it can be used as an effective metric for predicting the test-time perfor
     <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2Fcalibration-segmentation%2F">LinkedIn</a> |
     <a href="https://facebook.com/sharer.php?u=http://localhost:4000/calibration-segmentation/" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
 </div>
-
+<!-- hr -->
 :ET
