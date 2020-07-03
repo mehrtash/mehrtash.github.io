@@ -16,7 +16,8 @@ minimal: true # minima-inspired style without box-shadows
 navigation:
 #  - {file: "media_blog.md", icon: keyboard}
 #  - {file: "mlr_blog.md", icon: keyboard}
-#  - {file: "blog.md", icon: keyboard}
+  - {file: "blog.md", icon: keyboard}
+  - {file: "publications.html", icon: camera}
   - {file: "index.html", icon: camera}
 
 external:
