@@ -1,0 +1,169 @@
+I"�3<!-- introduction -->
+<p><a href="https://arxiv.org/abs/1411.4038">Fully convolutional neural networks</a> (FCNs) have been successfully used 
+in medical image analysis for semantic segmentation of normal organs and lesions.
+The <a href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is arguably the most popular architecture in medical image segmentation, 
+has achieved top ranking results in several segmentation challenges.
+Additionally, <a href="https://arxiv.org/abs/1502.03167">Batch Normalization</a> (BN) and 
+<a href="https://arxiv.org/abs/1606.04797">Dice loss</a> are often used stabilize and accelerate training.
+Models trained with BN tend to be <a href="https://arxiv.org/abs/1706.04599">less calibrated</a>.
+Also, <a href="https://arxiv.org/abs/1809.10430">empirical results on cardiac MRI segmentation</a> suggest that 
+networks trained with Dice loss are often poorly calibrated.
+<a href="https://arxiv.org/abs/1706.04599">Miscalibration is a known issue in modern neural networks</a>.</p>
+
+<p>Calibration is described as the ability of a decision-making system to provide an expectation of success (i.e. correct classification).
+Using a frequentist interpretation of uncertainty, predictions (i.e. class probabilities) of a 
+<em>well-calibrated</em> model should match the probability of success of those inferences in the long run.
+For instance, if a well-calibrated brain tumor segmentation model classifies 100 pixels each with the 
+probability of 0.7 as cancer,  we expect 70 of those pixels to be correctly classified as cancer. 
+Miscalibration results in models that are unreliable and hard to interpret.
+In some domains, for example medical applications, or automated driving, <a href="https://arxiv.org/abs/1606.06565">overconfidence can be dangerous</a>.</p>
+
+<p>In our recent <a href="https://ieeexplore.ieee.org/document/9130729">IEEE TMI</a> paper <a href="https://arxiv.org/abs/1911.13273">“Confidence Calibration and Predictive Uncertainty Estimation for Deep Medical 
+Image Segmentation”</a>, we study predictive uncertainty 
+estimation in FCNs for medical image segmentation.
+We propose model ensembling for calibration of FCNs trained with Dice loss.
+We also present an entropy-based metric to predict segmentation quality of foreground structures at inference time,
+which can be also used to detect out-of-distribution samples.
+We conduct experiments across three medical image segmentation applications
+of <a href="https://www.med.upenn.edu/sbia/brats2017/data.html">brain</a>, 
+<a href="https://www.creatis.insa-lyon.fr/Challenge/acdc/">heart</a>, 
+and <a href="http://isgwww.cs.uni-magdeburg.de/cas/isbi2018/">prostate</a> to evaluate our contributions.</p>
+
+<figure class="figure">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/summary.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure." />
+  <figcaption class="figure-caption">A caption for the above image.</figcaption>
+</figure>
+
+<h4 id="metrics-for-calibration-quality-assessment">Metrics for Calibration Quality Assessment</h4>
+<p>We use 
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html">Negative Log Likelihood (NLL)</a>, 
+<a href="https://en.wikipedia.org/wiki/Brier_score">Brier score</a>,  and 
+<a href="https://arxiv.org/abs/1706.04599">reliability diagrams</a> for evaluating calibration and uncertainty estimation.
+We also use <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4410090/">Expected Calibration Error (ECE)</a>
+as a quantitative summary of the reliability diagrams.</p>
+
+<h4 id="dice-loss-vs-cross-entropy-ce">Dice loss vs Cross Entropy (CE)</h4>
+<p>We start by comparing baselines trained with weighted cross-entropy (CE) loss 
+with those that were trained with Dice loss in terms 
+of segmentation quality and predictive uncertainty estimation.
+We consistently observe that FCNs trained with Dice loss perform better segmentation compared to 
+those trained with CE (in terms of Dice score and Hausdorff distance) but at the cost of worse calibration
+(in terms of NLL and ECE%).</p>
+
+<h4 id="calibration-by-ensembling">Calibration by Ensembling</h4>
+<p>We propose <a href="https://web.engr.oregonstate.edu/~tgd/publications/mcs-ensembles.pdf">ensembling</a> for confidence calibration of poorly calibrated FCNs trained with Dice loss. 
+Similar to the <a href="https://arxiv.org/abs/1612.01474">Deep Ensembles</a> method, 
+we train <script type="math/tex">M</script> FCNs from scratch, with random initialization 
+of the network parameters and random shuffling of the training dataset (using different random seeds 
+for each of the baselines).
+However, unlike the Deep Ensemble method, we do not use any form of adversarial training.
+At inference time, we compute the probability of the ensemble as the average of the baseline probabilities.
+We observe that ensembling significantly improves the calibration of models, specifically those that
+were trained with Dice loss. For instance, for the prostate, the heart, and the brain tumor segmentation, 
+using even five ensembles (M=5) of baselines trained with Dice loss can reduce the NLL by 
+about 66%, 44%, and 62%, respectively.</p>
+
+<figure class="figure">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/n_models.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure." />
+  <figcaption class="figure-caption">A caption for the above image.</figcaption>
+</figure>
+
+<h4 id="comparison-with-mc-dropout">Comparison with MC Dropout</h4>
+<p><a href="https://arxiv.org/abs/1506.02142">Monte Carlo dropout (MC dropout)</a> is widely used 
+for uncertainty estimation of deep networks.
+In this method dropout layers are applied at certain layers during the training time.
+At test time, the probabilistic Gaussian process (uncertainty) is approximated 
+by running the model several times with active dropout layers.
+Here, we also compared ensembling with <a href="https://arxiv.org/abs/1511.02680">MC dropout</a>. 
+We observe that in all cases ensembling outperforms MC dropout models in 
+terms of calibration and segmentation quality.
+Another benefit of ensembling over MC dropout is that it does not enforce the use of dropout layers.</p>
+
+<h4 id="segment-level-predictive-uncertainty-estimation">Segment-level Predictive Uncertainty Estimation</h4>
+<p>It is often desirable to have a confidence metric that captures model uncertainty at the segment-level
+of a test image volume.
+Let’s assume that we have a pelvic MRI volume and we use a deep model to segment the prostate gland.
+If we have access to the ground truth, we can calculate Dice score of the prostate and 
+describe the performance of the model for this specific example with a scalar metric.
+But what if we don’t have access to the ground truth.
+Is there any way to come up with a scalar metric that is a good representative of the segmentation quality
+of the predicted prostate gland?
+In other words we seek a metric that has an acceptable correlation with Dice score and can be calculated 
+at test-time without any knowledge of the ground truth.
+Such a metric would be useful in clinical deployment of deep models.
+Here, we propose an entropy-based metric as a segmnet-level uncertainty estimation tool.
+Given the pixel-level class predictions <script type="math/tex">\hat{y}_i</script> and their associated ground truth class 
+<script type="math/tex">y_i</script> for a predicted segment <script type="math/tex">\hat{\mathcal{S}}_k = \{s \in (x_i, \hat{y}_i) | \hat{y}_i=k \}</script>, 
+we propose to use the average of pixel-wise entropy values over the predicted foreground:</p>
+
+<script type="math/tex; mode=display">\overline{\mathcal{H}(\hat{\mathcal{S}}_k)} = - \frac{1}{\left|\hat{\mathcal{S}}_k\right|} \sum_{i\in \hat{\mathcal{S}}_k} 
+[p(\hat{y}_i=k| x_i,\theta)\cdot \ln{\left(p(\hat{y}_i=k|x_i,\theta)\right)} + \\
+     \left(1- p(\hat{y}_i=k| x_i,\theta) \right) \cdot \ln{\left(1-p(\hat{y}_i=k|x_i,\theta)\right)}].</script>
+
+<p>In calculating the average entropy of <script type="math/tex">\hat{\mathcal{S}}_k</script>, we assumed binary classification: 
+the probability of belonging to class <script type="math/tex">k</script>, <script type="math/tex">p(\hat{y}_i=k| x_i, \theta)</script> 
+and the probability of belonging to other classes <script type="math/tex">1 - p(\hat{y}_i=k| x_i, \theta)</script>.</p>
+
+<p>We calculate segment-level confidence for each of the foreground 
+labels and plot the <script type="math/tex">\overline{\mathcal{H(\hat{\mathcal{S})}}}</script> vs. Dice.
+We observed a strong correlation between Dice coefficient and average of entropy over the predicted segment.
+Hence, <script type="math/tex">\overline{\mathcal{H(\hat{\mathcal{S})}}}</script> can be used as a useful metric for 
+predicting the segmentation quality of the predictions at test-time.
+Higher entropy means less confidence in predictions and more inaccurate classifications leading 
+to poorer Dice coefficients.</p>
+
+<figure class="figure">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/entropy_dice.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure." />
+  <figcaption class="figure-caption">
+  
+  .</figcaption>
+</figure>
+
+<h4 id="out-of-distribution-detection">Out-of-distribution Detection</h4>
+<p>Another important aspect of uncertainty estimation  is the ability of a predictive model to distinguish 
+<em>in-distribution</em> test examples (i.e. those similar to the training data) from 
+<em>out-of-distribution</em> (OOD) test examples (i.e. those that do not fit the distribution of the training data).
+In medical imaging applications as deep networks are often <a href="https://arxiv.org/abs/1702.07841">sensitive to <em>domain shift</em></a>.
+For instance, networks trained on one MRI protocol often do not perform satisfactorily on images obtained with slightly different parameters or OOD test images.
+Hence, in the face of an OOD sample, an ideal model knows
+and announces <em>“I do not know”</em> and seeks human intervention, if possible, instead of a silent failure.</p>
+
+<p>In our experiments we use two public datasets: PROSTATEx (<a href="">images</a>,
+ <a href="">labels</a>) and <a href="">PROMISE12</a>. 
+PROSTATEx dataset was used for training, while PROMISE12 dataset was set aside for test only.
+PROSTATEx dataset was collected in a single institute and all the images were acquired using <a href="">phased-array coils</a>.
+PROMISE12 dataset is a heterogeneous multi-institutional dataset acquired using different 
+MR scanners and acquisition parameters.
+As a result of domain shift, models trained on phase-array coils do not work well on images acquired with
+endorectal coils and sometimes they fail drastically.<br />
+We observe that calibrated FCNs have the potential to detect OOD samples.</p>
+
+<figure class="figure">
+  <img src="../assets/images/posts/2020-07-02-uncertainty-estimation/ood.png" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure." />
+  <figcaption class="figure-caption">
+  The results of inference are shown for two test examples imaged with: (a) phased-array coil (in-distribution example), and (b) endorectal coil (out-of-distribution example).
+  The first column shows T2-weighted MRI images with the prostate gland boundary drawn by an expert (white line).
+  The second column shows the MRI overlaid with uncalibrated segmentation predictions of an FCN trained with Dice loss.
+  The third column shows the calibrated segmentation predictions of an ensemble of FCNs trained with Dice loss.
+  The fourth column shows the histogram of the calibrated class probabilities over the predicted prostate segment of the whole volume. 
+  Note that the bottom row has a much wider distribution compared to the top row, indicating that this is an out of distribution example. 
+  </figcaption>
+</figure>
+
+<!-- ##### Segmentation Quality -->
+
+<h5 id="conclusions">Conclusions</h5>
+<p>Model ensembling is effective not only for improving segmentation quality but also for confidence calibration. 
+It significantly improves the calibration qualities of FCNs trained with Dice Loss and BN.
+Also, average entropy of the predicted segments correlates with Dice score.  Hence, it can be used as an effective metric for predicting the test-time performance when the ground-truth is unknown.
+<!-- - Well-calibrated models can detect out-of-distribution examples and predict failures. --></p>
+
+<div class="share-page">
+    Share this post on &rarr;
+    <a href="https://twitter.com/intent/tweet?text=Confidence Calibration and Uncertainty Estimation for Deep Medical Image Segmentation&amp;url=http://localhost:4000/calibration-segmentation/&amp;via=&amp;related=" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a> |
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2Fcalibration-segmentation%2F">LinkedIn</a> |
+    <a href="https://facebook.com/sharer.php?u=http://localhost:4000/calibration-segmentation/" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+</div>
+<!-- hr -->
+
+:ET

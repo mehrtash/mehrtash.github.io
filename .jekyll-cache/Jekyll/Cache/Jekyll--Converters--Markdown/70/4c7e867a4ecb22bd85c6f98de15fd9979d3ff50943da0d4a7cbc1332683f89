@@ -1,0 +1,12 @@
+I"÷<!-- introduction -->
+<p><a href="https://arxiv.org/abs/1411.4038">Fully convolutional neural networks</a> (FCNs) have been successfully used 
+in medical image analysis for semantic segmentation of normal organs and lesions.
+The <a href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is arguably the most popular architecture in medical image segmentation, 
+has achieved top ranking results in several segmentation challenges.
+Additionally, <a href="https://arxiv.org/abs/1502.03167">Batch Normalization</a> (BN) and 
+<a href="https://arxiv.org/abs/1606.04797">Dice loss</a> are often used to stabilize and accelerate training.
+Models trained with BN tend to be <a href="https://arxiv.org/abs/1706.04599">less calibrated</a>.
+Also, <a href="https://arxiv.org/abs/1809.10430">empirical results on cardiac MRI segmentation</a> suggest that 
+networks trained with Dice loss are often poorly calibrated.
+<a href="https://arxiv.org/abs/1706.04599">Miscalibration is a known issue in modern neural networks</a>.</p>
+:ET
