@@ -12,7 +12,7 @@ The [U-Net](https://arxiv.org/abs/1505.04597), which is arguably the most popula
 has achieved top ranking results in several segmentation challenges.
 Additionally, [Batch Normalization](https://arxiv.org/abs/1502.03167) (BN) and 
 [Dice loss](https://arxiv.org/abs/1606.04797) are often used to stabilize and accelerate training.
-Models trained with BN tend to be [less calibrated](https://arxiv.org/abs/1706.04599).
+Models trained with BN tend to be [less calibrated](https://arxiv.org/abs/1706.04599) compared to those trained without BN.
 Also, [empirical results on cardiac MRI segmentation](https://arxiv.org/abs/1809.10430) suggest that 
 networks trained with Dice loss are often poorly calibrated.
 [Miscalibration is a known issue in modern neural networks](https://arxiv.org/abs/1706.04599). 
